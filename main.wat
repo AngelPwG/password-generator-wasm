@@ -413,8 +413,16 @@
       local.set $char
       ;; ver si es leet
       local.get $char
-      call $is_leet
-      if 
+      i32.const 32
+      i32.eq
+      if
+       local.get $char
+       call $to_leet
+       local.set $char
+      else
+       local.get $char
+       call $is_leet
+       if 
         call $random_bool
         if
           local.get $char
@@ -428,13 +436,14 @@
             local.set $char
           end
         end
-      else
+       else
         call $random_bool
         if 
           local.get $char
           call $toggle_case
           local.set $char
         end
+       end
       end
 
       local.get 2
