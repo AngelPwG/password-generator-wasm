@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Generador y validador de contraseñas con WebAssembly."
+  />
+  <title>Password Lab</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <main class="container">
+    <header class="hero">
+      <p class="eyebrow">WebAssembly Password Tool</p>
+      <h1>Password Lab</h1>
+      <p class="subtitle">
+        Genera una contraseña a partir de una frase y comprueba si una contraseña
+        cumple las reglas básicas.
+      </p>
+    </header>
+
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <p class="section-number">01</p>
+          <h2>Generar contraseña</h2>
+        </div>
+        <span id="wasmStatus" class="status loading">Cargando WASM…</span>
+      </div>
+
+      <label for="phrase">Frase</label>
+      <div class="input-row">
+        <input
+          id="phrase"
+          type="text"
+          maxlength="256"
+          placeholder="Ej. Me gustan los gatos"
+          autocomplete="off"
+        />
+        <button id="generateBtn" type="button" disabled>Generar</button>
+      </div>
+
+      <p class="hint">
+        El texto se normaliza a ASCII antes de enviarse a WebAssembly.
+      </p>
+
+      <div id="resultBox" class="result-box hidden">
+        <div class="result-heading">
+          <span>Contraseñas generadas</span>
+        </div>
+        <code id="generatedPassword"></code>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <p class="section-number">02</p>
+          <h2>Validar contraseña</h2>
+        </div>
+      </div>
+
+      <label for="passwordInput">Contraseña</label>
+      <input
+        id="passwordInput"
+        type="text"
+        placeholder="Escribe una contraseña"
+        autocomplete="off"
+      />
+
+      <div class="rules">
+        <div class="rule" id="ruleLength">
+          <span class="indicator">×</span>
+          <span>12 o más caracteres</span>
+        </div>
+
+        <div class="rule" id="ruleUpper">
+          <span class="indicator">×</span>
+          <span>Al menos una mayúscula</span>
+        </div>
+
+        <div class="rule" id="ruleLower">
+          <span class="indicator">×</span>
+          <span>Al menos una minúscula</span>
+        </div>
+
+        <div class="rule" id="ruleNumber">
+          <span class="indicator">×</span>
+          <span>Al menos un número</span>
+        </div>
+
+        <div class="rule" id="ruleSymbol">
+          <span class="indicator">×</span>
+          <span>Al menos un símbolo</span>
+        </div>
+      </div>
+
+      <div id="strength" class="strength bad">No cumple las reglas</div>
+    </section>
+
+    <footer>
+      <p>
+        El procesamiento se realiza localmente en tu navegador. La frase y la
+        contraseña no se envían a un servidor.
+      </p>
+    </footer>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
+
